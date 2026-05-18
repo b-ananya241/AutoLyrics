@@ -27,7 +27,7 @@ def prepare_dataset(batch, feature_extractor, tokenizer):
         audio["array"],
         sampling_rate=audio["sampling_rate"]
     ).input_features[0]
-    batch["labels"] = tokenizer(batch["text"]).input_ids
+    batch["labels"] = tokenizer(batch["text"], max_length=448, truncation=True).input_ids
     return batch
 
 @dataclass
