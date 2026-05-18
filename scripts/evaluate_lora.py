@@ -1,3 +1,9 @@
+import sys
+sys.path.append("src")
+from autolyrics.audio_preprocess import preprocess_audio
+
+
+
 import json
 import time
 import torch
@@ -35,8 +41,8 @@ def evaluate_lora():
     predictions, references, latencies = [], [], []
 
     for i, clip in enumerate(test_split):
-        audio, _ = librosa.load(clip["audio_path"],
-                                 sr=SAMPLE_RATE, mono=True)
+       audio, _ = librosa.load(clip["audio_path"], sr=SAMPLE_RATE, mono=True)
+audio = preprocess_audio(audio, SAMPLE_RATE)
         audio = audio[:MAX_DURATION_S * SAMPLE_RATE]
 
         inputs = processor(audio, sampling_rate=SAMPLE_RATE,
@@ -45,12 +51,11 @@ def evaluate_lora():
 
         start = time.time()
         with torch.no_grad():
-            predicted_ids = model.generate(
+   predicted_ids = model.generate(
     input_features=input_features,
-    language="en",
-    task="transcribe",
-    num_beams=5,
-    temperature=0.0
+    forced_decoder_ids=processor.get_decoder_prompt_ids(
+        language="en", task="transcribe"
+    )
 )
         elapsed = time.time() - start
 

@@ -1,3 +1,9 @@
+import sys
+sys.path.append("src")
+from autolyrics.audio_preprocess import preprocess_audio
+
+
+
 import json
 import torch
 import whisper
@@ -32,7 +38,8 @@ class SingingDataset(Dataset):
     def __getitem__(self, idx):
         clip = self.clips[idx]
         import librosa
-        audio, _ = librosa.load(clip["audio_path"], sr=SAMPLE_RATE, mono=True)
+       audio, _ = librosa.load(clip["audio_path"], sr=SAMPLE_RATE, mono=True)
+audio = preprocess_audio(audio, SAMPLE_RATE)
 
         # truncate to 30 s
         max_samples = MAX_DURATION_S * SAMPLE_RATE
@@ -120,7 +127,8 @@ def main():
             input_features = batch["input_features"].to(device)
             labels         = batch["labels"].to(device)
 
-            outputs = model(input_features=input_features, labels=labels)
+           decoder_input_ids = torch.tensor([[model.config.decoder_start_token_id]] * input_features.size(0)).to(device)
+outputs = model(input_features=input_features, labels=labels, decoder_input_ids=decoder_input_ids)
             loss    = outputs.loss
 
             optimizer.zero_grad()

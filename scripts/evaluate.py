@@ -1,3 +1,8 @@
+import sys
+sys.path.append("src")
+from autolyrics.audio_preprocess import preprocess_audio
+
+
 import json
 import time
 import torch
