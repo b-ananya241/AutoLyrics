@@ -5,7 +5,7 @@ from pathlib import Path
 from datasets import load_dataset, Audio
 from transformers import WhisperForConditionalGeneration, WhisperProcessor
 from peft import PeftModel
-import evaluate
+from jiwer import wer
 
 MODEL_NAME   = "openai/whisper-small"
 ADAPTER_PATH = "models/lora_decoder"
@@ -29,7 +29,6 @@ def main():
     test  = split["test"].cast_column("audio", Audio(sampling_rate=16000))
     print(f"Test clips: {len(test)}")
 
-    wer_metric  = evaluate.load("wer")
     predictions = []
     references  = []
     latencies   = []
@@ -59,18 +58,18 @@ def main():
         print(f"[{i+1}/{len(test)}] REF : {ref[:60]}")
         print(f"        PRED: {pred[:60]}")
 
-    wer = wer_metric.compute(predictions=predictions, references=references)
+    wer_score = wer(references, predictions)
 
     # load baseline
     try:
         baseline_wer = json.load(open("results/baseline.json"))["WER"]
-        improvement  = (baseline_wer - wer) / baseline_wer * 100
+        improvement  = (baseline_wer - wer_score) / baseline_wer * 100
     except:
         baseline_wer, improvement = None, None
 
     results = {
         "model":    "whisper-small + LoRA decoder",
-        "WER":      round(wer, 4),
+        "WER":      round(wer_score, 4),
         "baseline_WER": baseline_wer,
         "relative_WER_improvement_pct": round(improvement, 2) if improvement else None,
         "avg_latency_s": round(sum(latencies)/len(latencies), 3),
@@ -81,7 +80,7 @@ def main():
     json.dump(results, open(RESULTS_FILE, "w"), indent=2)
 
     print(f"\n--- LoRA Results ---")
-    print(f"WER      : {wer*100:.1f}%")
+    print(f"WER      : {wer_score*100:.1f}%")
     print(f"Baseline : {baseline_wer*100:.1f}%" if baseline_wer else "")
     print(f"Improvement: {improvement:.1f}%" if improvement else "")
     print(f"Saved to : {RESULTS_FILE}")
