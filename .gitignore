@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# ML artifacts
+models/checkpoints/
+models/lora/
+*.pt
+*.bin
+wandb/
+
+# Data (keep structure, ignore large files)
+data/raw/
+data/processed/
+*.wav
+*.mp3
+*.flac
+!data/samples/
+
+# IDE & OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+*.key
+
+# Reports build
+reports/*.aux
+reports/*.log
