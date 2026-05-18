@@ -78,15 +78,15 @@ def main():
     processor = WhisperProcessor.from_pretrained(MODEL_NAME)
     model     = WhisperForConditionalGeneration.from_pretrained(MODEL_NAME)
 
-    # ── attach LoRA to decoder only ──────────────────────
-   lora_config = LoraConfig(
-    r                = 16,
-    lora_alpha       = 32,
-    target_modules   = ["q_proj", "v_proj", "k_proj", "out_proj"],
-    lora_dropout     = 0.1,
-    bias             = "none",
-    task_type        = TaskType.SEQ_2_SEQ_LM
-)
+   # ── attach LoRA to decoder only ──────────────────────
+    lora_config = LoraConfig(
+        r                = 16,
+        lora_alpha       = 32,
+        target_modules   = ["q_proj", "v_proj", "k_proj", "out_proj"],
+        lora_dropout     = 0.1,
+        bias             = "none",
+        task_type        = TaskType.SEQ_2_SEQ_LM
+    )
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     model.to(device)
