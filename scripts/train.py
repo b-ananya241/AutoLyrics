@@ -130,7 +130,7 @@ def main():
         learning_rate               = 1e-4,
         warmup_steps                = 50,
         num_train_epochs            = 10,
-        evaluation_strategy         = "epoch",
+        eval_strategy         = "epoch",
         save_strategy               = "epoch",
         load_best_model_at_end      = True,
         metric_for_best_model       = "wer",
