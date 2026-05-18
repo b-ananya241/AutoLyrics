@@ -17,7 +17,7 @@ def main():
     model = whisper.load_model("small", device=device)
 
     print("Loading jam-alt test data...")
-    ds    = load_dataset("audioshake/jam-alt", "en", trust_remote_code=True)
+    ds    = load_dataset("audioshake/jam-alt", "en")
     split = ds["test"].train_test_split(test_size=0.2, seed=42)
     test  = split["test"].cast_column("audio", Audio(sampling_rate=16000))
     print(f"Test clips: {len(test)}")

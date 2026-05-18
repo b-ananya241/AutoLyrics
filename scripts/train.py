@@ -64,7 +64,7 @@ def compute_metrics(pred, tokenizer, metric):
 def main():
     print("Loading jam-alt dataset...")
     # load only english songs
-    ds = load_dataset("audioshake/jam-alt", "en", trust_remote_code=True)
+    ds = load_dataset("audioshake/jam-alt", "en")
     print(ds)
 
     # jam-alt only has a test split — we manually split it
