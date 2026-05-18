@@ -1,0 +1,34 @@
+{
+  "model": "whisper-small",
+  "mode": "zero-shot baseline",
+  "num_clips": 4,
+  "WER": 0.7445,
+  "CER": 0.3689,
+  "avg_latency_s": 3.569,
+  "per_clip": [
+    {
+      "audio_path": "/content/AutoLyrics/data/raw/nus48e/ADIZ/sing/01.wav",
+      "reference": "edelweiss edelweiss every maoahnihng ewe greet me small en white clean ehndah bright yuh look hhehpiy tuwah meat me blahsahm ahf snow mae ewe bloom ena gro bloom en gro faoaherrehvah edelweiss edelweiss bless mai hhowmlehnd faoerrehvah",
+      "prediction": "a little vice, a little vice, every morning you greet me, small and white, clean and bright, you look happy to meet me, blossom of snow may you bloom and grow, bloom and grow forever, a little vice, a little vice, bless my homeland forever.",
+      "latency_s": 3.839
+    },
+    {
+      "audio_path": "/content/AutoLyrics/data/raw/nus48e/ADIZ/sing/09.wav",
+      "reference": "love me tehndah laav me suite nehvah let me goa iyyuw hhehv made mai life complete end ai love ewe sowa love me tena love me chruw aw mai jhriyms fahaofihaht faoer mai daaleyng heye love ewe end ayih owweyz ville love me tehndah love me laongah take me tew yaoer hhaaaheht faoer ihs dehah dheht ai bihlaongah end uwwihl never paaaht love me tehndah love me dhia tehow me ewe ahr maynuh aisle b yaoahs sruw all dhahey yiyihs 'til the end ahf time wen eh laast mai chriyms come chruw daalihng this ai know hhaepiynehs wah faolow ewe ehvriywehah hugo",
+      "prediction": "love me tender, love me sweet, never let me go. you have made my life complete, and i love you so. love me tender, love me true, all my dreams fulfilled. for my darling, i love you, and i always will. love me tender, love me long, take me to your heart, for it's there that i belong, and will never part. love me tender, love me dear, tell me you are mine. i'll be yours through all the years, till the end of time. when at last my dreams come true, darling this i know. happiness will follow you everywhere you go.",
+      "latency_s": 3.247
+    },
+    {
+      "audio_path": "/content/AutoLyrics/data/raw/nus48e/KENN/sing/04.wav",
+      "reference": "saylehnt knight hhowliynayt all ihs calm all ihs bright 'round jaan virgin mahdhahr ahn child holy ihnfehn sew tehnderr ahn maoaaowt sleep in ahhhehvahnliy peace sleep in heavenly peace silent knight holy knight shehperts quake at the cite glori schriym from heaven afar heavenly ho sing hhaalihluwyaa kreiss dhahseyviyyerr ihs baoaaahrn kraahhaysth the c'est fyerr ihs born silent knight holy knight son ahf gaoahd lahvs pyowrah light raydiyyihnt biyms from thy holy face with the daun ahf riydiymiyng grace jesus lahd ae dhayberth jesus lord at thy berth",
+      "prediction": "silent night, holy night, all is calm, all is bright. round yon virgin, mother and child, holy infant so tender and mild. sleep in heavenly peace, sleep in heavenly peace. silent night, holy night, shepherd's quake at the sight. glory stream from heaven afar, heavenly hosting, hallelujah. christ the savior is born, christ the savior is born. silent night, holy night, son of god loves pure light. radiant beams from thy holy face, with the dawn of redeeming grace. jesus, lord at thy birth.",
+      "latency_s": 3.81
+    },
+    {
+      "audio_path": "/content/AutoLyrics/data/raw/nus48e/MCUR/sing/04.wav",
+      "reference": "saylahn knight holy knight all ihs kaom all ihs bright 'round yaun virgin maodherr en chaaahld holy infant sew tehnderr end maaahlt sleep ihnah hhaavahnliy peace sahliyp ihnah heavenly peace saylahn knight holy knight shehpahaas quake aaeht the cite glori stream fraomah heaven afar hhehvnliyyah hosts sing aalehluwyaa christ the seyvihahr ihs baughn christ the seyvihahr ihs baughan saaahlahn knight holy knight saaahn aov god laavs pyaor light reydiyyahnt biyms fraom thy holy face uwwihth the daun of riydiymihng grace jhiysaos laad ahaoah thy berth jhiyzahaas lord eh thy berth",
+      "prediction": "silent night, holy night, all is calm, all is bright, round yon virgin, mother and child, all the infant so tender and mild, sleep in heavenly peace, sleep in heavenly peace. silent night, holy night, shepherds quake at the sight, glory streamed from heaven afar, heavenly hosts sing alleluia. christ the savior is born, christ the savior is born. silent night, holy night, son of god loves pure light, radiant beams from thy holy face, with the dawn of redeeming grace. jesus lord at thy birth, jesus lord at thy birth.",
+      "latency_s": 3.378
+    }
+  ]
+}
