@@ -45,7 +45,7 @@ def evaluate_lora():
 
         start = time.time()
         with torch.no_grad():
-            predicted_ids = model.generate(input_features)
+            predicted_ids = model.generate(inputs=input_features)
         elapsed = time.time() - start
 
         prediction = processor.batch_decode(
