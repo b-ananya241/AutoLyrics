@@ -39,7 +39,7 @@ class SingingDataset(Dataset):
         clip = self.clips[idx]
         import librosa
        audio, _ = librosa.load(clip["audio_path"], sr=SAMPLE_RATE, mono=True)
-audio = preprocess_audio(audio, SAMPLE_RATE)
+       audio = preprocess_audio(audio, SAMPLE_RATE)
 
         # truncate to 30 s
         max_samples = MAX_DURATION_S * SAMPLE_RATE
