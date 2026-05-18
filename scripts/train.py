@@ -85,7 +85,7 @@ def main():
     processor = WhisperProcessor.from_pretrained(MODEL_NAME)
     model     = WhisperForConditionalGeneration.from_pretrained(MODEL_NAME)
 
-   # ── attach LoRA to decoder only ──────────────────────
+    # ── attach LoRA to decoder only ──────────────────────
     lora_config = LoraConfig(
         r                = 16,
         lora_alpha       = 32,
@@ -127,8 +127,8 @@ def main():
             input_features = batch["input_features"].to(device)
             labels         = batch["labels"].to(device)
 
-           decoder_input_ids = torch.tensor([[model.config.decoder_start_token_id]] * input_features.size(0)).to(device)
-outputs = model(input_features=input_features, labels=labels, decoder_input_ids=decoder_input_ids)
+            decoder_input_ids = torch.tensor([[model.config.decoder_start_token_id]] * input_features.size(0)).to(device)
+            outputs = model(input_features=input_features, labels=labels, decoder_input_ids=decoder_input_ids)
             loss    = outputs.loss
 
             optimizer.zero_grad()
