@@ -148,9 +148,8 @@ def main():
         args          = training_args,
         train_dataset = dataset["train"],
         eval_dataset  = dataset["validation"],
-        tokenizer     = processor.feature_extractor,
         data_collator = data_collator,
-        compute_metrics = lambda pred: compute_metrics(pred, tokenizer, wer_metric),
+        compute_metrics = lambda pred: compute_metrics(pred, processor.tokenizer, wer_metric),
     )
 
     print("Starting training...")
