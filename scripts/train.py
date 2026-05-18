@@ -11,7 +11,7 @@ from transformers import (
     Seq2SeqTrainer,
 )
 from peft import LoraConfig, get_peft_model, TaskType
-import evaluate
+import evaluate as hf_evaluate
 import json
 from pathlib import Path
 
@@ -119,7 +119,7 @@ def main():
     data_collator = DataCollatorSpeechSeq2SeqWithPadding(processor=processor)
 
     # metric
-    wer_metric = evaluate.load("wer")
+    wer_metric = hf_evaluate.load("wer")
 
     # training args
     training_args = Seq2SeqTrainingArguments(
