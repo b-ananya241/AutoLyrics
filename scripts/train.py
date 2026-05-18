@@ -14,9 +14,9 @@ MODEL_NAME      = "openai/whisper-small"
 DATASET_PATH    = "data/processed/nus48e/hf_dataset"
 OUTPUT_DIR      = "models/lora_decoder"
 RESULTS_FILE    = "results/lora_decoder.json"
-EPOCHS          = 10
-BATCH_SIZE      = 2
-LEARNING_RATE   = 1e-4
+EPOCHS          = 30
+BATCH_SIZE      = 4
+LEARNING_RATE   = 5e-5
 MAX_DURATION_S  = 30
 SAMPLE_RATE     = 16000
 # ────────────────────────────────────────────────────────
@@ -79,14 +79,14 @@ def main():
     model     = WhisperForConditionalGeneration.from_pretrained(MODEL_NAME)
 
     # ── attach LoRA to decoder only ──────────────────────
-    lora_config = LoraConfig(
-        r                = 8,
-        lora_alpha       = 16,
-        target_modules   = ["q_proj", "v_proj"],   # decoder attention
-        lora_dropout     = 0.05,
-        bias             = "none",
-        task_type        = TaskType.SEQ_2_SEQ_LM
-    )
+   lora_config = LoraConfig(
+    r                = 16,
+    lora_alpha       = 32,
+    target_modules   = ["q_proj", "v_proj", "k_proj", "out_proj"],
+    lora_dropout     = 0.1,
+    bias             = "none",
+    task_type        = TaskType.SEQ_2_SEQ_LM
+)
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     model.to(device)
