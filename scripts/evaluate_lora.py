@@ -41,8 +41,8 @@ def evaluate_lora():
     predictions, references, latencies = [], [], []
 
     for i, clip in enumerate(test_split):
-       audio, _ = librosa.load(clip["audio_path"], sr=SAMPLE_RATE, mono=True)
-       audio = preprocess_audio(audio, SAMPLE_RATE)
+        audio, _ = librosa.load(clip["audio_path"], sr=SAMPLE_RATE, mono=True)
+        audio = preprocess_audio(audio, SAMPLE_RATE)
         audio = audio[:MAX_DURATION_S * SAMPLE_RATE]
 
         inputs = processor(audio, sampling_rate=SAMPLE_RATE,
@@ -51,12 +51,12 @@ def evaluate_lora():
 
         start = time.time()
         with torch.no_grad():
-   predicted_ids = model.generate(
-    input_features=input_features,
-    forced_decoder_ids=processor.get_decoder_prompt_ids(
-        language="en", task="transcribe"
-    )
-)
+            predicted_ids = model.generate(
+                input_features=input_features,
+                forced_decoder_ids=processor.get_decoder_prompt_ids(
+                    language="en", task="transcribe"
+                )
+            )
         elapsed = time.time() - start
 
         prediction = processor.batch_decode(
