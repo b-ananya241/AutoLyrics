@@ -127,8 +127,7 @@ def main():
             input_features = batch["input_features"].to(device)
             labels         = batch["labels"].to(device)
 
-            decoder_input_ids = torch.tensor([[model.config.decoder_start_token_id]] * input_features.size(0)).to(device)
-            outputs = model(input_features=input_features, labels=labels, decoder_input_ids=decoder_input_ids)
+            outputs = model(input_features=input_features, labels=labels)
             loss    = outputs.loss
 
             optimizer.zero_grad()
