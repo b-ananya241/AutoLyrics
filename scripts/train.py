@@ -11,7 +11,6 @@ from transformers import (
     Seq2SeqTrainer,
 )
 from peft import LoraConfig, get_peft_model, TaskType
-import evaluate as hf_evaluate
 import json
 from pathlib import Path
 
@@ -52,14 +51,15 @@ class DataCollatorSpeechSeq2SeqWithPadding:
         batch["labels"] = labels
         return batch
 
-def compute_metrics(pred, tokenizer, metric):
-    pred_ids   = pred.predictions
-    label_ids  = pred.label_ids
+def compute_metrics(pred, tokenizer, metric=None):
+    pred_ids  = pred.predictions
+    label_ids = pred.label_ids
     label_ids[label_ids == -100] = tokenizer.pad_token_id
-    pred_str   = tokenizer.batch_decode(pred_ids,   skip_special_tokens=True)
-    label_str  = tokenizer.batch_decode(label_ids,  skip_special_tokens=True)
-    wer = 100 * metric.compute(predictions=pred_str, references=label_str)
-    return {"wer": wer}
+    pred_str  = tokenizer.batch_decode(pred_ids,  skip_special_tokens=True)
+    label_str = tokenizer.batch_decode(label_ids, skip_special_tokens=True)
+    from jiwer import wer
+    word_error_rate = wer(label_str, pred_str)
+    return {"wer": round(word_error_rate * 100, 2)}
 
 def main():
     print("Loading jam-alt dataset...")
@@ -119,7 +119,7 @@ def main():
     data_collator = DataCollatorSpeechSeq2SeqWithPadding(processor=processor)
 
     # metric
-    wer_metric = hf_evaluate.load("wer")
+    wer_metric = None
 
     # training args
     training_args = Seq2SeqTrainingArguments(
